@@ -63,6 +63,54 @@ class CrudService
             ],
             'editable' => ['full_name', 'role'], // admin can edit name/role, not password here
         ],
+        'attendance' => [
+            'primary_key' => 'id',
+            'columns' => [
+                'id' => 'int', 'empid' => 'int', 'deptid' => 'string',
+                'workstart' => 'string', 'workend' => 'string', 'entrydate' => 'string',
+                // entrydate has a DB default (current_timestamp), so it's excluded from 'editable'
+            ],
+            'editable' => ['empid', 'deptid', 'workstart', 'workend'],
+        ],
+        'employeebank' => [
+            'primary_key' => 'id',
+            'columns' => [
+                'id' => 'int', 'name' => 'string',
+            ],
+            'editable' => ['name'],
+        ],
+        'helpdesk' => [
+            'primary_key' => 'id',
+            'columns' => [
+                'id' => 'int', 'name' => 'string', 'complaint' => 'string',
+                'assignedto' => 'int', 'entrydate' => 'string', 'status' => 'string',
+                'feedback' => 'string',
+            ],
+            'editable' => ['name', 'complaint', 'assignedto', 'entrydate', 'status', 'feedback'],
+        ],
+        'payroll' => [
+            'primary_key' => 'id',
+            'columns' => [
+                'id' => 'int', 'month' => 'string', 'employee' => 'int',
+                'grosssalary' => 'string', 'deductions' => 'string', 'netsalary' => 'string',
+                'entrydate' => 'string', 'bank' => 'int', 'accountno' => 'string',
+                'ssnitid' => 'string',
+            ],
+            'editable' => [
+                'month', 'employee', 'grosssalary', 'deductions', 'netsalary',
+                'bank', 'accountno', 'ssnitid',
+            ],
+        ],
+		'department' => [
+            'primary_key' => 'id',
+            'columns' => [
+                'id' => 'int',
+                'name' => 'string'
+            ],
+            'editable' => [
+                'name'
+            ],
+        ],
     ];
 
     public function __construct()
@@ -97,6 +145,13 @@ class CrudService
         RBAC::requirePermission($table, 'create');
 
         $clean = $this->filterEditableData($table, $data);
+
+        // helpdesk.entrydate has no DB-side default, unlike attendance/payroll,
+        // so fill it in here if the client didn't supply one.
+        if ($table === 'helpdesk' && !isset($clean['entrydate'])) {
+            $clean['entrydate'] = date('Y-m-d H:i:s');
+        }
+
         if (empty($clean)) {
             return ['success' => false, 'error' => 'No valid fields supplied'];
         }

@@ -42,6 +42,37 @@ class RBAC
             'update' => ['admin'],
             'delete' => ['admin'],
         ],
+        'attendance' => [
+            'create' => ['admin', 'staff'],
+            'read'   => ['admin', 'staff'],
+            'update' => ['admin', 'staff'],
+            'delete' => ['admin'],
+        ],
+        'employeebank' => [
+            // Just a lookup list of bank names, but only staff who manage
+            // payroll need to touch it.
+            'create' => ['admin'],
+            'read'   => ['admin', 'staff'],
+            'update' => ['admin'],
+            'delete' => ['admin'],
+        ],
+        'helpdesk' => [
+            'create' => ['admin', 'staff', 'user'], // anyone can log a complaint
+            'read'   => ['admin', 'staff'],
+            'update' => ['admin', 'staff'],
+            'delete' => ['admin'],
+        ],
+        'payroll' => [
+            // Contains salary figures, bank account numbers and SSNIT IDs,
+            // so this is intentionally admin-only in every direction.
+            'create' => ['admin'],
+            'read'   => ['admin'],
+            'update' => ['admin'],
+            'delete' => ['admin'],
+        ],
+		'department' => [
+            'read'   => ['admin']
+        ],
     ];
 
     public static function hasPermission(string $role, string $table, string $action): bool

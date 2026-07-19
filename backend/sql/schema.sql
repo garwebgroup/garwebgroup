@@ -70,3 +70,53 @@ VALUES (
   2020,
   'assets/img/logo.png'
 );
+
+-- ---------------------------------------------------------------------
+-- Newly added tables (attendance, employeebank, helpdesk, payroll)
+-- ---------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empid` int(11) NOT NULL,
+  `deptid` datetime NOT NULL,
+  `workstart` datetime NOT NULL,
+  `workend` datetime NOT NULL,
+  `entrydate` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ;
+
+CREATE TABLE IF NOT EXISTS `employeebank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ;
+
+-- NOTE: `id` here has no AUTO_INCREMENT in the SQL as supplied. That means
+-- the API cannot rely on the database to generate it, and generic
+-- create() (which never writes to a primary key) will fail with
+-- "Field 'id' doesn't have a default value". Recommended fix:
+--   ALTER TABLE `helpdesk` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+CREATE TABLE IF NOT EXISTS `helpdesk` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `complaint` varchar(180) NOT NULL,
+  `assignedto` int(11) NOT NULL,
+  `entrydate` datetime NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `feedback` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ;
+
+CREATE TABLE IF NOT EXISTS `payroll` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `month` text NOT NULL,
+  `employee` int(11) NOT NULL,
+  `grosssalary` decimal(10,0) NOT NULL,
+  `deductions` decimal(10,0) NOT NULL,
+  `netsalary` decimal(10,0) NOT NULL,
+  `entrydate` datetime NOT NULL DEFAULT current_timestamp(),
+  `bank` int(11) NOT NULL,
+  `accountno` varchar(20) NOT NULL,
+  `ssnitid` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ;
