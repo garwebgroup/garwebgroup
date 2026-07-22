@@ -9,7 +9,9 @@ All requests are routed through a single base URL stored in the `{{base_url}}` c
 ## Base URL
 
 ```
-{{base_url}}
+{{base_url}} This can be localhost 
+depending on the location of your server and database
+Just replace all {{base_url}} with your server IP (eg, localhost:80)
 ```
 
 ---
