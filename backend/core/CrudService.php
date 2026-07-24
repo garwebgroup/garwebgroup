@@ -111,6 +111,17 @@ class CrudService
                 'name'
             ],
         ],
+		'contacts' => [
+            'primary_key' => 'id',
+            'columns' => [
+                'id' => 'int',
+                'fullname' => 'string',
+                'emailaddress'=>'string',
+                'subject'=>'string',
+                'Yourmessage'=>'string'
+            ],
+            'editable' => [ 'fullname', 'emailaddress', 'subject', 'Yourmessage' ],
+        ]
     ];
 
     public function __construct()

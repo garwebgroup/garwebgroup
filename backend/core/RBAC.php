@@ -73,6 +73,12 @@ class RBAC
 		'department' => [
             'read'   => ['admin']
         ],
+		'contacts' => [
+            'create' => ['admin', 'staff', , 'user'],
+            'read'   => ['admin', 'staff', , 'user'],
+            'update' => ['admin', 'staff', , 'user'],
+            'delete' => ['admin', 'staff', , 'user']
+        ]
     ];
 
     public static function hasPermission(string $role, string $table, string $action): bool
