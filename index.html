@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legon Hills Hotel - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--color-deep-teal);
+        }
+        .hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--color-light);
+        }
+        .hero-content h1 {
+            color: var(--color-light);
+            font-size: 4rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .member-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-subtle);
+            transition: transform var(--transition-fast);
+        }
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .member-icon {
+            font-size: 4rem;
+            color: var(--color-muted-teal);
+            margin-bottom: 1rem;
+        }
+        .member-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        .member-card p {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="ph-fill ph-buildings"></i> Legon Hills</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li id="theme-toggle" style="cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; color: var(--color-dark-teal);"><i id="theme-icon" class="ph-bold ph-moon"></i></li>
+            <li><a href="auth.html" class="btn-primary" style="color:var(--color-deep-teal);">Login</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <img id="slider-image" src="images/slide1.png" alt="Hotel View">
+        <div class="hero-content">
+            <h1>Experience Pure Luxury</h1>
+            <p>Welcome to your paradise. We bring you the finest hospitality.</p>
+        </div>
+    </header>
+
+    <section class="section container">
+        <div style="text-align: center;">
+            <h2 style="font-size: 2.5rem;">Our Development Team</h2>
+            <p>Meet the group of 10 talented individuals who built this platform.</p>
+        </div>
+        
+        <div class="members-grid">
+            <!-- 10 Group Members -->
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Alex Johnson</h3>
+                <p>ID: 10293041</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Sarah Mensah</h3>
+                <p>ID: 10293042</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>David Osei</h3>
+                <p>ID: 10293043</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Emily Davis</h3>
+                <p>ID: 10293044</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Michael Brown</h3>
+                <p>ID: 10293045</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Jessica Taylor</h3>
+                <p>ID: 10293046</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Daniel Wilson</h3>
+                <p>ID: 10293047</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Sophia Moore</h3>
+                <p>ID: 10293048</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>James Anderson</h3>
+                <p>ID: 10293049</p>
+            </div>
+            <div class="member-card">
+                <i class="ph-fill ph-user-circle member-icon"></i>
+                <h3>Olivia Thomas</h3>
+                <p>ID: 10293050</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scrolling Text using JS/CSS -->
+    <div class="scrolling-text-container">
+        <span class="scrolling-text">Welcome to Legon Hills Hotel! Book your stay now and enjoy a 20% discount on all premium suites. Experience world-class dining, luxury spas, and unforgettable views. Join our membership program today!</span>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
