@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Legon Hills Hotel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-subtle);
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .info-item i {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+        }
+        .info-item h4 {
+            margin-bottom: 0.2rem;
+        }
+        .popup-demos {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid #eee;
+        }
+        .popup-demos button {
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar scrolled">
+        <a href="index.html" class="logo"><i class="ph-fill ph-buildings"></i> Legon Hills</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li id="theme-toggle" style="cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; color: var(--color-dark-teal);"><i id="theme-icon" class="ph-bold ph-moon"></i></li>
+            <li><a href="auth.html" class="btn-primary" style="color:var(--color-deep-teal);">Login</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1>Contact Us</h1>
+        <p>We would love to hear from you. Get in touch today.</p>
+    </header>
+
+    <section class="section container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2 style="font-size: 2rem; margin-bottom: 2rem;">Get In Touch</h2>
+                
+                <div class="info-item">
+                    <i class="ph-fill ph-map-pin"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>123 Luxury Avenue, Paradise Island</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="ph-fill ph-phone"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="ph-fill ph-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>contact@grandhorizon.com</p>
+                    </div>
+                </div>
+
+                <div class="popup-demos">
+                    <h3 style="margin-bottom: 1.5rem;">Guest Services & Offers</h3>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Explore our hotel policies and exclusive promotions:</p>
+                    <button id="btn-alert" class="btn-secondary"><i class="ph-bold ph-bell"></i> View Check-in Policy</button>
+                    <button id="btn-confirm" class="btn-secondary"><i class="ph-bold ph-question"></i> Book a Spa Session</button>
+                    <button id="btn-custom-modal" class="btn-primary"><i class="ph-bold ph-app-window"></i> Exclusive Offers</button>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2 style="font-size: 2rem; margin-bottom: 2rem;">Send a Message</h2>
+                <form onsubmit="event.preventDefault(); alert('Message Sent!');">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="5" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send Message <i class="ph-bold ph-paper-plane-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Modal -->
+    <div class="popup-overlay" id="custom-modal">
+        <div class="popup-content">
+            <i class="ph-fill ph-star" style="font-size: 4rem; color: var(--color-accent); margin-bottom: 1rem;"></i>
+            <h2 style="margin-bottom: 1rem;">Exclusive Offer!</h2>
+            <p style="margin-bottom: 2rem;">Sign up for our newsletter today and receive a complimentary spa treatment during your next stay.</p>
+            <button class="btn-secondary" id="close-modal" style="width: 100%;">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Legon Hills Hotel. All Rights Reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+	<script>
+    function validateForm() {
+        // Get field values
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // Check if any field is empty
+        if (name === '' || email === '' || subject === '' || message === '') {
+            alert(
+                "1. Name cannot be empty\n" +
+                "2. Email cannot be empty\n" +
+                "3. Subject cannot be empty\n" +
+                "4. Message cannot be empty"
+            );
+            return false; // Prevent form submission
+        }
+
+        // Show success message
+        alert("Message sent successfully");
+
+        // Optionally: clear the form after success
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('subject').value = '';
+        document.getElementById('message').value = '';
+
+        return true; // Allow form submission
+    }
+</script>
+
+</body>
+</html>
