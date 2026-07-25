@@ -120,3 +120,11 @@ CREATE TABLE IF NOT EXISTS `payroll` (
   `ssnitid` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ;
+
+CREATE TABLE IF NOT EXISTS `contacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fullname` text NOT NULL,
+  `emailaddress` text NOT NULL,
+  `subject` text NOT NULL,
+  `Yourmessage` text NOT NULL,
+)
