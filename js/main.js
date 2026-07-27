@@ -96,4 +96,35 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('hotel_theme', theme);
         });
     }
+
+    // Javascript Marquee / Scrolling Text Logic
+    const scrollingText = document.querySelector('.scrolling-text');
+    const scrollingContainer = document.querySelector('.scrolling-text-container');
+    if (scrollingText && scrollingContainer) {
+        let textWidth = scrollingText.offsetWidth;
+        let containerWidth = scrollingContainer.offsetWidth;
+        let currentPos = containerWidth; // Start completely off-screen to the right
+        let speed = 1.5; // Pixels per frame (speed of scroll)
+        
+        function animateScroll() {
+            currentPos -= speed; // Move left
+            
+            // If the entire text has scrolled completely off-screen to the left
+            if (currentPos < -textWidth) {
+                currentPos = containerWidth; // Teleport back to the right
+                // Recalculate sizes just in case the user resized their window
+                textWidth = scrollingText.offsetWidth;
+                containerWidth = scrollingContainer.offsetWidth;
+            }
+            
+            // Apply the position
+            scrollingText.style.transform = `translateX(${currentPos}px)`;
+            
+            // Ask the browser to call this function again on the next frame
+            requestAnimationFrame(animateScroll);
+        }
+        
+        // Start the infinite loop!
+        animateScroll();
+    }
 });
