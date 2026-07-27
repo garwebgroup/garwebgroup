@@ -3,14 +3,17 @@
 header('Content-Type: application/json');
 require_once 'config.php';
 
-// Check if it's a POST request and an action is defined
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $action = $_POST['action'];
+// Check if it's a POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Read JSON payload
+    $input = json_decode(file_get_contents('php://input'), true);
+    $action = $_GET['action'] ?? ($input['action'] ?? '');
 
     if ($action === 'register') {
-        $name = $_POST['name'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
+        $name = $input['full_name'] ?? '';
+        $email = $input['email'] ?? '';
+        $password = $input['password'] ?? '';
+        $username = $input['username'] ?? explode('@', $email)[0];
 
         if (empty($name) || empty($email) || empty($password)) {
             echo json_encode(['success' => false, 'message' => 'All fields are required.']);
@@ -18,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
 
         // Hashing the password for security
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
         try {
             // Check if email already exists
@@ -30,9 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             }
 
             // Insert new user
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
+            $stmt = $conn->prepare("INSERT INTO users (full_name, username, email, password_hash) VALUES (:name, :username, :email, :password)");
             $stmt->execute([
                 'name' => $name,
+                // generate a simple username from email if not provided by form
+                'username' => explode('@', $email)[0],
                 'email' => $email,
                 'password' => $hashed_password
             ]);
@@ -42,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
         }
     } elseif ($action === 'login') {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
+        $email = $input['identifier'] ?? ($input['email'] ?? '');
+        $password = $input['password'] ?? '';
 
         if (empty($email) || empty($password)) {
             echo json_encode(['success' => false, 'message' => 'Email and password are required.']);
@@ -51,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
 
         try {
-            $stmt = $conn->prepare("SELECT id, name, email, password FROM users WHERE email = :email");
+            $stmt = $conn->prepare("SELECT id, full_name as name, email, password_hash FROM users WHERE email = :email");
             $stmt->execute(['email' => $email]);
             $user = $stmt->fetch();
 
-            if ($user && password_verify($password, $user['password'])) {
+            if ($user && password_verify($password, $user['password_hash'])) {
                 // Do not send password back to the frontend
-                unset($user['password']);
+                unset($user['password_hash']);
                 echo json_encode(['success' => true, 'message' => 'Login successful', 'user' => $user]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Invalid email or password.']);
@@ -69,6 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         echo json_encode(['success' => false, 'message' => 'Invalid action.']);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method: ' . $_SERVER['REQUEST_METHOD']]);
 }
 ?>

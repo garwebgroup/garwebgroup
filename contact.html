@@ -45,7 +45,7 @@
 <body>
 
     <nav class="navbar scrolled">
-        <a href="index.html" class="logo"><i class="ph-fill ph-buildings"></i> Legon Hills</a>
+        <a href="index.html" class="logo"><i class="ph-fill ph-buildings"></i> Legon Hills Hotel</a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -69,14 +69,14 @@
                     <i class="ph-fill ph-map-pin"></i>
                     <div>
                         <h4>Location</h4>
-                        <p>123 Luxury Avenue, Paradise Island</p>
+                        <p>K262 Volga ST, Accra Ghana</p>
                     </div>
                 </div>
                 <div class="info-item">
                     <i class="ph-fill ph-phone"></i>
                     <div>
                         <h4>Phone</h4>
-                        <p>+1 (555) 123-4567</p>
+                        <p>+233 552 316 686</p>
                     </div>
                 </div>
                 <div class="info-item">
@@ -98,20 +98,21 @@
 
             <div class="contact-form">
                 <h2 style="font-size: 2rem; margin-bottom: 2rem;">Send a Message</h2>
-                <form onsubmit="event.preventDefault(); alert('Message Sent!');">
+                <form id="contact-form">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" class="form-control" placeholder="John Doe" required>
+                        <input type="text" id="contact-name" class="form-control" placeholder="John Doe" required>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" class="form-control" placeholder="john@example.com" required>
+                        <input type="email" id="contact-email" class="form-control" placeholder="john@example.com" required>
                     </div>
                     <div class="form-group">
                         <label>Message</label>
-                        <textarea class="form-control" rows="5" placeholder="How can we help you?" required></textarea>
+                        <textarea id="contact-message" class="form-control" rows="5" placeholder="How can we help you?" required></textarea>
                     </div>
                     <button type="submit" class="btn-primary">Send Message <i class="ph-bold ph-paper-plane-right"></i></button>
+                    <p id="contact-response-msg" style="margin-top: 1rem; font-weight: bold;"></p>
                 </form>
             </div>
         </div>
@@ -132,5 +133,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/api.js?v=3"></script>
 </body>
 </html>

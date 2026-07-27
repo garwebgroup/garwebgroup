@@ -3,10 +3,10 @@
 
 // Database Configuration
 // CHANGE THESE TO MATCH YOUR ACTUAL DATABASE DESIGN
-$host = 'localhost';
-$db_name = 'hotel_db'; // Your database name
-$username = 'root'; // Your database username
-$password = ''; // Your database password
+$host = 'sql200.infinityfree.com';
+$db_name = 'if0_42452023_db'; // Your database name
+$username = 'if0_42452023'; // Your database username
+$password = 'AccraGroup10'; // Your database password
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
